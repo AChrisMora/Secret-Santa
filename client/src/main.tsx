@@ -1,41 +1,35 @@
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-
-
-import App from './App.jsx';
-import Home from './pages/Home';
-import Signup from './pages/Signup';
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './pages/Login';
-import SingleThought from './pages/SingleThought';
-import Profile from './pages/Profile';
-import ErrorPage from './pages/Error';
+import CreateGroup from './pages/CreateGroup';
+import RandomSelection from './pages/RandomSelection';
+
+// Custom 404 Error Page
+const NotFound: React.FC = () => (
+  <div>
+    <h1>404 - Page Not Found</h1>
+    <p>The page you are looking for does not exist.</p>
+    <a href="/">Go back to Home</a>
+  </div>
+);
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App />,
-    errorElement: <ErrorPage />,
-    children: [
-      {
-        index: true,
-        element: <Home />
-      }, {
-        path: '/login',
-        element: <Login />
-      }, {
-        path: '/signup',
-        element: <Signup />
-      }, {
-        path: '/profiles/:username',
-        element: <Profile />
-      }, {
-        path: '/me',
-        element: <Profile />
-      }, {
-        path: '/thoughts/:thoughtId',
-        element: <SingleThought />
-      }
-    ]
+    path: '/', // Default page is Login
+    element: <Login />,
+    errorElement: <NotFound />, // Custom error page
+  },
+  {
+    path: '/login', // Explicit login route
+    element: <Login />,
+  },
+  {
+    path: '/create-group',
+    element: <CreateGroup />,
+  },
+  {
+    path: '/random-selection',
+    element: <RandomSelection />,
   },
 ]);
 
