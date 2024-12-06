@@ -1,44 +1,41 @@
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-
-import App from './App.jsx';
-import Home from './pages/Home';
-import Signup from './pages/Signup';
+// Import the main app layout and pages
+import App from './App';
 import Login from './pages/Login';
-import SingleThought from './pages/SingleThought';
-import Profile from './pages/Profile';
-import ErrorPage from './pages/Error';
+import RandomSelection from './pages/RandomSelection';
+import CreateGroup from './pages/CreateGroup';
+import SelectDate from './pages/SelectDate';
 
+// Define the router with routes
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
     children: [
+  
       {
-        index: true,
-        element: <Home />
-      }, {
         path: '/login',
-        element: <Login />
-      }, {
-        path: '/signup',
-        element: <Signup />
-      }, {
-        path: '/profiles/:username',
-        element: <Profile />
-      }, {
-        path: '/me',
-        element: <Profile />
-      }, {
-        path: '/thoughts/:thoughtId',
-        element: <SingleThought />
-      }
-    ]
+        element: <Login />,
+      },
+      {
+        path: '/create-group',
+        element: <CreateGroup />,
+      },
+      {
+        path: '/select-date',
+        element: <SelectDate />,
+      },
+      {
+        path: '/random-selection',
+        element: <RandomSelection />,
+      },
+    ],
   },
 ]);
 
+// Render the React application
 const rootElement = document.getElementById('root');
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
