@@ -10,7 +10,36 @@ const CreateGroup: React.FC = () => {
   const addParticipant = () => {
     if (name.trim()) {
       setParticipants([...participants, name]);
-      setName(''); // Clear the input field
+      setName(''); 
+    }
+  };
+
+  // Send data to the server
+  const sendDataToServer = async () => {
+    const groupData = {
+      participants: participants, 
+    };
+
+    try {
+      const response = await fetch('http://localhost:5000/api/groups', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(groupData),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log('Data sent successfully:', result);
+        alert('Group data saved successfully!');
+      } else {
+        console.error('Failed to send data:', response.statusText);
+        alert('Failed to save group data.');
+      }
+    } catch (error) {
+      console.error('Error sending data:', error);
+      alert('An error occurred while saving group data.');
     }
   };
 
@@ -22,6 +51,8 @@ const CreateGroup: React.FC = () => {
         giver,
         receiver: shuffled[(index + 1) % shuffled.length],
       }));
+      // Send data to the server before navigating
+      sendDataToServer();
       navigate('/random-selection', { state: { assignments } });
     } else {
       alert('You need at least two participants to generate assignments!');
