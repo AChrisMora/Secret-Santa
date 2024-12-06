@@ -1,41 +1,38 @@
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-
-// Import the main app layout and pages
-import App from './App';
 import Login from './pages/Login';
-import RandomSelection from './pages/RandomSelection';
 import CreateGroup from './pages/CreateGroup';
-import SelectDate from './pages/SelectDate';
+import RandomSelection from './pages/RandomSelection';
 
-// Define the router with routes
+// Custom 404 Error Page
+const NotFound: React.FC = () => (
+  <div>
+    <h1>404 - Page Not Found</h1>
+    <p>The page you are looking for does not exist.</p>
+    <a href="/">Go back to Home</a>
+  </div>
+);
+
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App />,
-    children: [
-  
-      {
-        path: '/login',
-        element: <Login />,
-      },
-      {
-        path: '/create-group',
-        element: <CreateGroup />,
-      },
-      {
-        path: '/select-date',
-        element: <SelectDate />,
-      },
-      {
-        path: '/random-selection',
-        element: <RandomSelection />,
-      },
-    ],
+    path: '/', // Default page is Login
+    element: <Login />,
+    errorElement: <NotFound />, // Custom error page
+  },
+  {
+    path: '/login', // Explicit login route
+    element: <Login />,
+  },
+  {
+    path: '/create-group',
+    element: <CreateGroup />,
+  },
+  {
+    path: '/random-selection',
+    element: <RandomSelection />,
   },
 ]);
 
-// Render the React application
 const rootElement = document.getElementById('root');
 if (rootElement) {
   ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
