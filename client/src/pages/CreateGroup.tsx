@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 const CreateGroup: React.FC = () => {
   const [participants, setParticipants] = useState<string[]>([]);
   const [name, setName] = useState('');
-  const [assignments, setAssignments] = useState<{ giver: string; receiver: string }[]>([]);
   const navigate = useNavigate();
 
   const addParticipant = () => {
@@ -15,13 +14,12 @@ const CreateGroup: React.FC = () => {
   };
 
   const generateAssignments = () => {
-    const shuffled = [...participants].sort(() => Math.random() -0.5);
+    const shuffled = [...participants].sort(() => Math.random() - 0.5);
     const result = shuffled.map((giver, index) => ({
-        giver,
-        receiver: shuffled[(index +1) % shuffled.length],
+      giver,
+      receiver: shuffled[(index + 1) % shuffled.length],
     }));
-    setAssignments(result);
-    navigate('/random-selection'), { state: {assignments: result}};
+    navigate('/random-selection', { state: { assignments: result } });
   };
 
   return (
