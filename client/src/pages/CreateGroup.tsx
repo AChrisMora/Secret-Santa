@@ -6,20 +6,26 @@ const CreateGroup: React.FC = () => {
   const [name, setName] = useState('');
   const navigate = useNavigate();
 
+  // Add a participant to the list
   const addParticipant = () => {
     if (name.trim()) {
       setParticipants([...participants, name]);
-      setName('');
+      setName(''); // Clear the input field
     }
   };
 
+  // Generate assignments and navigate to the results page
   const generateAssignments = () => {
-    const shuffled = [...participants].sort(() => Math.random() - 0.5);
-    const result = shuffled.map((giver, index) => ({
-      giver,
-      receiver: shuffled[(index + 1) % shuffled.length],
-    }));
-    navigate('/random-selection', { state: { assignments: result } });
+    if (participants.length > 1) {
+      const shuffled = [...participants].sort(() => Math.random() - 0.5);
+      const assignments = shuffled.map((giver, index) => ({
+        giver,
+        receiver: shuffled[(index + 1) % shuffled.length],
+      }));
+      navigate('/random-selection', { state: { assignments } });
+    } else {
+      alert('You need at least two participants to generate assignments!');
+    }
   };
 
   return (
@@ -36,11 +42,11 @@ const CreateGroup: React.FC = () => {
         {participants.map((participant, index) => (
           <li key={index}>{participant}</li>
         ))}
-    </ul>
-    {participants.length > 1 && (
+      </ul>
+      {participants.length > 1 && (
         <button onClick={generateAssignments}>Generate Assignments</button>
-    )}
-  </div>
+      )}
+    </div>
   );
 };
 
