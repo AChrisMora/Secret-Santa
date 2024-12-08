@@ -39,11 +39,39 @@ const resolvers = {
             // Return the token and the user
             return { token, user };
         },
-        createSSGroup: async (_parent, { name, members }) => {
-            // Create a new user with the provided username, email, and password
-            const ssGroup = await Group.create({ name, members });
-            // Return the token and the user
+        createSSGroup: async (_parent, { name, members, matches }, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('Not authenticated.');
+            }
+            const ssGroup = await Group.create({
+                name,
+                members,
+                matches,
+                userId: context.user._id,
+            });
             return ssGroup;
+        },
+        addMemberToGroup: async (_parent, { groupId, member, }, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('Not authenticated.');
+            }
+            return Group.findByIdAndUpdate({ _id: groupId, userId: context.user._id }, { $addToSet: { members: member } }, { new: true });
+        },
+        removeMemberFromGroup: async (_parent, { groupId, member }, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('Not authenticated.');
+            }
+            return Group.findByIdAndUpdate({ _id: groupId, userId: context.user._id }, { $pull: { members: member } }, { new: true });
+        },
+        removeSSGroup: async (_parent, { groupId }, context) => {
+            if (!context.user) {
+                throw new AuthenticationError('Not authenticated.');
+            }
+            const deleted = await Group.findOneAndDelete({
+                _id: groupId,
+                userId: context.user._id,
+            });
+            return !!deleted;
         },
     },
 };
