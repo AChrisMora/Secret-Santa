@@ -1,4 +1,4 @@
-import { User } from '../models/index.js';
+import { User, Group } from '../models/index.js';
 import { signToken, AuthenticationError } from '../utils/auth.js'; 
 
 // Define types for the arguments
@@ -15,16 +15,18 @@ interface LoginUserArgs {
   password: string;
 }
 
-
+interface CreateSSGroupArgs {
+  name: string;
+  members: string[];
+}
 
 const resolvers = {
   Query: {
     // Query to get the authenticated user's information
     // The 'me' query relies on the context to check if the user is authenticated
     me: async (_parent: any, _args: any, context: any) => {
-      // If the user is authenticated, find and return the user's information along with their thoughts
       if (context.user) {
-        return User.findOne({ _id: context.user._id }).populate('thoughts');
+        return User.findOne({ _id: context.user._id }).populate('ssGroups');
       }
       // If the user is not authenticated, throw an AuthenticationError
       throw new AuthenticationError('Could not authenticate user.');
@@ -66,7 +68,14 @@ const resolvers = {
       return { token, user };
     },
     
+    createSSGroup: async (_parent: any, { name, members }: CreateSSGroupArgs) => {
+      // Create a new user with the provided username, email, and password
+      const ssGroup = await Group.create({ name, members });
     
+      // Return the token and the user
+      return ssGroup;
+    },
+
   },
 };
 

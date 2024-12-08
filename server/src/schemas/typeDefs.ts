@@ -36,10 +36,10 @@ const typeDefs = `
     addUser(input: UserInput!): Auth
     login(email: String!, password: String!): Auth
     createSSGroup(name: String!, members: [String]!): SSGroup
-    addMemberToGroup(groupId: ID!, member: String!): SSGroup
-    removeMemberFromGroup(groupId: ID!, member: String!): SSGroup
-    removeSSGroup(groupId: ID!): Boolean
-  }
-`;
-
+    }
+    `;
+    // addMemberToGroup(groupId: ID!, member: String!): SSGroup
+    // removeMemberFromGroup(groupId: ID!, member: String!): SSGroup
+    // removeSSGroup(groupId: ID!): Boolean
+    
 export default typeDefs;
