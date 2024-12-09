@@ -1,33 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Assignment, ApiResponse } from '../interfaces/AssignmentInterface';
+import { useMutation } from '@apollo/client';
+import { SAVE_ASSIGNMENTS } from '../utils/mutations';
+import { Assignment } from '../interfaces/AssignmentInterface';
 
 const RandomSelection: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const [saveAssignments] = useMutation(SAVE_ASSIGNMENTS);
+
+  const [groupId, setGroupId] = useState<string | null>(null);
 
   // Retrieve assignments from state
   const assignments: Assignment[] = location.state?.assignments || [];
 
+  useEffect(() => {
+    // Assuming groupId comes from the state or API
+    const retrievedGroupId = location.state?.groupId || 'DEFAULT_GROUP_ID'; // Fetch the actual group ID
+    setGroupId(retrievedGroupId); // Update groupId state
+  }, [location.state]);
+
   // Send assignments to the server
   const sendAssignmentsToServer = async () => {
+    if (!groupId) {
+      alert('No group ID available');
+      return;
+    }
+
     try {
-      const response = await fetch('http://localhost:5000/api/assignments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ assignments }),
+      const { data } = await saveAssignments({
+        variables: { groupId, assignments },
       });
 
-      if (response.ok) {
-        const result: ApiResponse<Assignment[]> = await response.json();
-        console.log('Assignments sent successfully:', result);
-        alert('Assignments saved successfully!');
-      } else {
-        console.error('Failed to send assignments:', response.statusText);
-        alert('Failed to save assignments.');
-      }
+      console.log('Assignments sent successfully:', data);
+      alert('Assignments saved successfully!');
     } catch (error) {
       console.error('Error sending assignments:', error);
       alert('An error occurred while saving assignments.');
