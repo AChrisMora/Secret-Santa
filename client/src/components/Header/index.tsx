@@ -16,6 +16,11 @@ const Header: React.FC = () => {
             Login
           </Link>
         </nav>
+<nav>
+          <Link to="/signup" className="header-login-btn">
+            Sign Up
+          </Link>
+        </nav>
       </div>
     </header>
   );
