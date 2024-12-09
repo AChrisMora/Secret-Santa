@@ -1,55 +1,25 @@
 import { gql } from '@apollo/client';
 
-export const LOGIN_USER = gql`
-  mutation login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
-      token
-      user {
-        _id
-        username
+// Mutation to add a group with participants
+export const ADD_GROUP = gql`
+  mutation addGroup($participants: [String!]!) {
+    addGroup(participants: $participants) {
+      _id
+      participants {
+        name
       }
     }
   }
 `;
 
-export const ADD_USER = gql`
-  mutation Mutation($input: UserInput!) {
-  addUser(input: $input) {
-    user {
-      username
+// Mutation to save group assignments
+export const SAVE_ASSIGNMENTS = gql`
+  mutation saveAssignments($groupId: ID!, $assignments: [AssignmentInput!]!) {
+    saveAssignments(groupId: $groupId, assignments: $assignments) {
       _id
-    }
-    token
-  }
-}
-`;
-
-export const ADD_THOUGHT = gql`
-  mutation AddThought($input: ThoughtInput!) {
-    addThought(input: $input) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-      }
-    }
-  }
-`;
-
-export const ADD_COMMENT = gql`
-  mutation addComment($thoughtId: ID!, $commentText: String!) {
-    addComment(thoughtId: $thoughtId, commentText: $commentText) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        createdAt
+      assignments {
+        giver
+        receiver
       }
     }
   }

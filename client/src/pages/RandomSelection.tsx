@@ -1,11 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import '../App.css'; // import styling
-
-interface Assignment {
-  giver: string;
-  receiver: string;
-}
+import { Assignment, ApiResponse } from '../interfaces/AssignmentInterface';
 
 const RandomSelection: React.FC = () => {
   const location = useLocation();
@@ -26,7 +21,7 @@ const RandomSelection: React.FC = () => {
       });
 
       if (response.ok) {
-        const result = await response.json();
+        const result: ApiResponse<Assignment[]> = await response.json();
         console.log('Assignments sent successfully:', result);
         alert('Assignments saved successfully!');
       } else {
@@ -51,10 +46,14 @@ const RandomSelection: React.FC = () => {
           ))}
         </ul>
       ) : (
-        <p className="no-assignments"> No assignments found. Please go back and try again.</p>
+        <p className="no-assignments">No assignments found. Please go back and try again.</p>
       )}
-      <button className="buttons" onClick={sendAssignmentsToServer}>Save Assignments</button>
-      <button className="buttons"   onClick={() => navigate('/create-group')}>Create a New Group</button>
+      <button className="buttons" onClick={sendAssignmentsToServer}>
+        Save Assignments
+      </button>
+      <button className="buttons" onClick={() => navigate('/create-group')}>
+        Create a New Group
+      </button>
     </div>
   );
 };
