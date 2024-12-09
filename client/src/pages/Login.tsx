@@ -9,8 +9,8 @@ import Auth from '../utils/auth';
 const Login: React.FC = () => {
   const [user, setUser] = useState<User>({ username: '', password: '' });
   const [loginUser] = useMutation(LOGIN_USER);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
-  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();  // Initialize the useNavigate hook
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -19,20 +19,21 @@ const Login: React.FC = () => {
 
   const handleLogin = async () => {
     try {
+      // Perform the login mutation
       const { data } = await loginUser({
         variables: { email: user.username, password: user.password }, // Send email and password
       });
 
-      Auth.login(data.login.token); // Call the login method to save the token
-      setIsLoggedIn(true);
+      // Save the token in local storage and redirect to '/create-group'
+      Auth.login(data.login.token);
+      setIsLoggedIn(true); // Update the login status locally (if using state for local UI)
+
+      // Navigate to the "create-group" page after login is successful
+      navigate('/create-group');
       console.log('User logged in successfully:', user.username);
     } catch (error) {
       console.error('Invalid username or password');
     }
-  };
-
-  const handleCreateGroup = () => {
-    navigate('/create-group');
   };
 
   return (
@@ -61,7 +62,7 @@ const Login: React.FC = () => {
       ) : (
         <div className="welcome-message">
           <h2>Welcome, Secret Santa!</h2>
-          <button className="create-group-button" onClick={handleCreateGroup}>
+          <button className="create-group-button" onClick={() => navigate('/create-group')}>
             Create Group
           </button>
         </div>
