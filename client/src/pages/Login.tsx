@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../App.css'; // import styling
 
 const Login: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
@@ -16,8 +17,8 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="login-container">
+      {!isLoggedIn && <h1>Login</h1>}
       {!isLoggedIn ? (
         // Show the login form if the user is not logged in
         <form onSubmit={(e) => e.preventDefault()}>
@@ -27,9 +28,9 @@ const Login: React.FC = () => {
         </form>
       ) : (
         // Show the "Create Group" button after the user logs in
-        <div>
+        <div className="welcome-message">
           <h2>Welcome, Secret Santa!</h2>
-          <button onClick={handleCreateGroup}>Create Group</button>
+          <button className="create-group-button" onClick={handleCreateGroup}>Create Group</button>
         </div>
       )}
     </div>
