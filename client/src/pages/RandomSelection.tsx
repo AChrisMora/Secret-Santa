@@ -1,10 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-
-interface Assignment {
-  giver: string;
-  receiver: string;
-}
+import { Assignment } from '../interfaces/AssignmentInterface';
 
 const RandomSelection: React.FC = () => {
   const location = useLocation();
