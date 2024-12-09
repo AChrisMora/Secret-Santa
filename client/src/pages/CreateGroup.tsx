@@ -5,7 +5,7 @@ import { Assignment } from '../interfaces/AssignmentInterface';
 import '../App.css';
 
 const CreateGroup: React.FC = () => {
-  const [participants, setParticipants] = useState<Participant[]>([]);
+  const [participants, setParticipants] = useState<Participant[]>([]); // Use Participant array
   const [name, setName] = useState('');
   const navigate = useNavigate();
 
