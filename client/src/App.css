@@ -1,1 +1,85 @@
-/* Header */
+body {
+    margin: 0;
+    padding: 0;
+    background: url('/ss-background.jpg') no-repeat center center/cover;
+    background-size: cover;
+    height: 100vh;
+   }
+
+/* login */
+.login-container {
+    color: #4caf50;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* login form */
+  .login-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* input */
+  .login-container input {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.8); 
+    color: #333;
+  }
+  
+  /* login button */
+  .login-container form button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: #ff4d4d;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .login-container form button:hover {
+    background: #e63939;
+  }
+  
+  /* welcome message */
+  .welcome-message h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #ff4d4d;
+    text-shadow: 2px 2px 4px rgba(233, 59, 59, 0.502);
+  }
+  
+  /* create group button */
+  .create-group-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    margin-left: 45px;
+    color: #fff;
+    background: #4caf50;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-group-button:hover {
+    background: #3e8e41;
+  }
+
+  
+  
