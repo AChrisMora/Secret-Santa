@@ -14,6 +14,7 @@ const App: React.FC = () => {
       {/* Main App Routes */}
       <main>
         <Routes>
+        <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/create-group" element={<CreateGroup />} />
           <Route path="/signup" element={<Signup />} />
