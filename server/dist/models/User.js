@@ -19,12 +19,17 @@ const userSchema = new Schema({
         required: true,
         minlength: 5,
     },
-    thoughts: [
+    friends: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'Thought',
+            ref: 'User',
         },
     ],
+    ssGroups: [
+        {
+            type: Schema.Types.Mixed,
+        }
+    ]
 }, {
     timestamps: true,
     toJSON: { getters: true },
