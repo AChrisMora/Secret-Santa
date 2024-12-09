@@ -1,36 +1,60 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../App.css'; // import styling
+import '../App.css';
+import { User } from '../interfaces/UserInterface';
 
 const Login: React.FC = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState<User>({ username: '', password: '' }); // Use User interface
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // Simulate a login process (replace with real logic if needed)
-    setIsLoggedIn(true);
-    console.log('User logged in successfully');
+    if (user.username.trim() && user.password.trim()) {
+      setIsLoggedIn(true);
+      console.log('User logged in successfully:', user.username);
+    } else {
+      console.error('Invalid username or password');
+    }
   };
 
   const handleCreateGroup = () => {
-    navigate('/create-group'); // Navigate to the Create Group page
+    navigate('/create-group');
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
   };
 
   return (
     <div className="login-container">
       {!isLoggedIn && <h1>Login</h1>}
       {!isLoggedIn ? (
-        // Show the login form if the user is not logged in
         <form onSubmit={(e) => e.preventDefault()}>
-          <input type="text" placeholder="Username" required />
-          <input type="password" placeholder="Password" required />
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={user.username}
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={user.password}
+            onChange={handleInputChange}
+            required
+          />
           <button onClick={handleLogin}>Login</button>
         </form>
       ) : (
-        // Show the "Create Group" button after the user logs in
         <div className="welcome-message">
           <h2>Welcome, Secret Santa!</h2>
-          <button className="create-group-button" onClick={handleCreateGroup}>Create Group</button>
+          <button className="create-group-button" onClick={handleCreateGroup}>
+            Create Group
+          </button>
         </div>
       )}
     </div>
