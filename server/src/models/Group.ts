@@ -1,4 +1,4 @@
-import { Schema, model} from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const ssGroupSchema = new Schema(
   {
@@ -10,7 +10,7 @@ const ssGroupSchema = new Schema(
     },
     members: [
       {
-        type: String,
+        type: String, 
       },
     ],
     matches: [
