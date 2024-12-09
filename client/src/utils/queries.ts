@@ -2,22 +2,29 @@ import { gql } from '@apollo/client';
 
 // Query to fetch all participants in a group
 export const QUERY_GROUP = gql`
-  query group($groupId: ID!) {
-    group(groupId: $groupId) {
+  query ssGroup($groupId: ID!) {
+    ssGroup(groupId: $groupId) {
       _id
-      participants {
-        name
+      name
+      members
+      matches {
+        giver
+        receiver
       }
     }
   }
 `;
 
-// Query to fetch group assignments
+// Query to fetch group assignments (matches)
 export const QUERY_ASSIGNMENTS = gql`
-  query assignments($groupId: ID!) {
-    assignments(groupId: $groupId) {
-      giver
-      receiver
+  query ssGroup($groupId: ID!) {
+    ssGroup(groupId: $groupId) {
+      _id
+      name
+      matches {
+        giver
+        receiver
+      }
     }
   }
 `;
