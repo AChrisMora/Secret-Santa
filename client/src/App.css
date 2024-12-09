@@ -221,4 +221,67 @@ li {
   .buttons:active {
     background-color: #3e8e41;
   }
+
+/*reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
   
+/* nav  */
+.header {
+    background-color:#397a3b;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+  }
+  
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .header-title {
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+    font-weight: bold;
+    
+  }
+
+  .header-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .header-img { 
+    width: 40px;
+    height: auto;
+  }
+  
+  .header-nav {
+    display: flex;
+    gap: 15px; 
+  }
+  
+  .header-login-btn,
+  .header-signup-btn {
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .header-login-btn:hover,
+  .header-signup-btn:hover {
+    background-color: #555;
+    border-color: #ddd;
+  }
