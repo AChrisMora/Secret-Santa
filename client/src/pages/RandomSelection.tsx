@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import '../App.css'; // import styling
 
 interface Assignment {
   giver: string;
@@ -39,21 +40,21 @@ const RandomSelection: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Secret Santa Assignments</h1>
+    <div className="random-selection-container">
+      <h1 className="random-selection-title">Secret Santa Assignments</h1>
       {assignments.length > 0 ? (
-        <ul>
+        <ul className="assignment-list">
           {assignments.map((assignment, index) => (
-            <li key={index}>
+            <li key={index} className="assignment-item">
               {assignment.giver} → {assignment.receiver}
             </li>
           ))}
         </ul>
       ) : (
-        <p>No assignments found. Please go back and try again.</p>
+        <p className="no-assignments"> No assignments found. Please go back and try again.</p>
       )}
-      <button onClick={sendAssignmentsToServer}>Save Assignments</button>
-      <button onClick={() => navigate('/create-group')}>Create a New Group</button>
+      <button className="buttons" onClick={sendAssignmentsToServer}>Save Assignments</button>
+      <button className="buttons"   onClick={() => navigate('/create-group')}>Create a New Group</button>
     </div>
   );
 };

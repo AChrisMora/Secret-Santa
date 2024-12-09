@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../App.css'; // import css
 
 const CreateGroup: React.FC = () => {
   const [participants, setParticipants] = useState<string[]>([]);
@@ -60,23 +61,25 @@ const CreateGroup: React.FC = () => {
   };
 
   return (
-    <div>
-      <h1>Create Group</h1>
-      <input
+    <div className="create-group-container">
+     <div className='create-group-form'>
+      <h1>  Create Group</h1>
+      <input className='input-participant'
         type="text"
         placeholder="Enter participant name"
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <button onClick={addParticipant}>Add Participant</button>
+      <button className="add-participant-button" onClick={addParticipant}>Add Participant</button>
       <ul>
         {participants.map((participant, index) => (
           <li key={index}>{participant}</li>
         ))}
       </ul>
       {participants.length > 1 && (
-        <button onClick={generateAssignments}>Generate Assignments</button>
+        <button className="generate-assignments-button" onClick={generateAssignments}>Generate Assignments</button>
       )}
+      </div>
     </div>
   );
 };
