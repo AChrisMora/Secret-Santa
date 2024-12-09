@@ -52,6 +52,4 @@ const typeDefs = `
     removeSSGroup(groupId: ID!): Boolean
     }
     `;
-    
-    
 export default typeDefs;
