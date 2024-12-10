@@ -15,18 +15,18 @@ interface LoginUserArgs {
   password: string;
 }
 
-interface Match {
-  giver: string;
-  receiver: string;
-}
+// interface Match {
+//   giver: string;
+//   receiver: string;
+// }
 
-interface CreateSSGroupArgs {
-  input:{
-  name: string;
-  members: string[];
-  matches: Match[];
-  }
-}
+// interface CreateSSGroupArgs {
+//   input:{
+//   name: string;
+//   members: string[];
+//   matches: Match[];
+//   }
+// }
 
 interface AdjustMemberArgs {
   groupId: string;
@@ -48,6 +48,16 @@ const resolvers = {
       // If the user is not authenticated, throw an AuthenticationError
       throw new AuthenticationError('Could not authenticate user.');
     },
+
+    myGroups: async (_parent: any, _args: any, context: any) => {
+      if (!context.user) {
+        throw new AuthenticationError('Not authenticated.');
+      }
+    
+      // Fetch all groups associated with the authenticated user
+      return Group.find({ userId: context.user._id });
+    },
+    
   },
   Mutation: {
     addUser: async (_parent: any, { input }: AddUserArgs) => {
@@ -100,25 +110,29 @@ const resolvers = {
     //   return updatedUser;
     // },
 
-    createSSGroup: async (_parent: any, { input }: CreateSSGroupArgs, context: any) => {
+    createSSGroup: async (_parent: any, { input }: any, context: any) => {
       if (!context.user) {
         throw new AuthenticationError('Not authenticated.');
       }
-      const ssGroup = await Group.create({ 
-        name: input.name, 
-        members: input.members, 
-        matches: input.matches, 
-        userId: context.user._id 
+    
+      const ssGroup = await Group.create({
+        name: input.name,
+        members: input.members,
+        matches: input.matches,
+        userId: context.user._id,
       });
-
-      const updatedUser = await User.findOneAndUpdate(
+    
+      await User.findOneAndUpdate(
         { _id: context.user._id },
-        { $addToSet: { ssGroups: ssGroup._id } },
+        { $addToSet: { ssGroups: ssGroup } },
         { new: true }
       );
-    
-      return updatedUser;
+      
+      console.log(ssGroup);
+      
+      return ssGroup;
     },
+    
 
     addMemberToGroup: async (_parent: any, { groupId, member, }: AdjustMemberArgs, context: any) => {
       if (!context.user) {

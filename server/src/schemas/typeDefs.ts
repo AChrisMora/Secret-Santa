@@ -46,7 +46,11 @@ const typeDefs = `
     user(username: String): User
     me: User
     ssGroups: [SSGroup]  
-    ssGroup(groupId: ID): SSGroup  # Get specific group details
+    ssGroup(groupId: ID): SSGroup
+  }
+
+  type Query {
+  myGroups: [SSGroup]
   }
 
   type Mutation {
