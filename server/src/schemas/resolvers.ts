@@ -59,6 +59,7 @@ const resolvers = {
     },
     
   },
+  
   Mutation: {
     addUser: async (_parent: any, { input }: AddUserArgs) => {
       // Create a new user with the provided username, email, and password
@@ -129,7 +130,7 @@ const resolvers = {
       );
       
       console.log(ssGroup);
-      
+
       return ssGroup;
     },
     
