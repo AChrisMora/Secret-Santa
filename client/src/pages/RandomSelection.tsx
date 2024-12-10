@@ -1,52 +1,13 @@
-import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useMutation } from '@apollo/client';
-import { SAVE_ASSIGNMENTS } from '../utils/mutations';
 import { Assignment } from '../interfaces/AssignmentInterface';
+import '../App.css';
 
 const RandomSelection: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const [saveAssignments] = useMutation(SAVE_ASSIGNMENTS);
-
-  const [groupId, setGroupId] = useState<string | null>(null);
 
   // Retrieve assignments from state
   const assignments: Assignment[] = location.state?.assignments || [];
-
-  useEffect(() => {
-
-    console.log('Location State:', location.state);
-
-    // Assuming groupId comes from the state or API
-    const retrievedGroupId = location.state?.groupId || 'DEFAULT_GROUP_ID'; // Fetch the actual group ID
-
-    console.log('Retrieved Group ID:', retrievedGroupId);
-    
-    setGroupId(retrievedGroupId); // Update groupId state
-  }, [location.state]);
-
-  console.log('Assignments:', assignments);
-
-  // Send assignments to the server
-  const sendAssignmentsToServer = async () => {
-    if (!groupId) {
-      alert('No group ID available');
-      return;
-    }
-
-    try {
-      const { data } = await saveAssignments({
-        variables: { groupId, assignments },
-      });
-
-      console.log('Assignments sent successfully:', data);
-      alert('Assignments saved successfully!');
-    } catch (error) {
-      console.error('Error sending assignments:', error);
-      alert('An error occurred while saving assignments.');
-    }
-  };
 
   return (
     <div className="random-selection-container">
@@ -62,9 +23,7 @@ const RandomSelection: React.FC = () => {
       ) : (
         <p className="no-assignments">No assignments found. Please go back and try again.</p>
       )}
-      <button className="buttons" onClick={sendAssignmentsToServer}>
-        Save Assignments
-      </button>
+      {/* Removed Save Assignments button */}
       <button className="buttons" onClick={() => navigate('/create-group')}>
         Create a New Group
       </button>

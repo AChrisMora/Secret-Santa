@@ -30,7 +30,7 @@ Secret-Santa is a modern, interactive web application designed to simplify the S
 ## Installation
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/secret-santa.git
+   git clone https://github.com/AChrisMora/Secret-Santa.git
    cd secret-santa
    ```
 
@@ -57,11 +57,11 @@ Secret-Santa is a modern, interactive web application designed to simplify the S
 4. Start the application:
    - **Server:**
      ```bash
-     npm run dev
+     npm run build
      ```
    - **Client:**
      ```bash
-     npm start
+     npm run start:dev
      ```
 
 5. Open the application in your browser:
