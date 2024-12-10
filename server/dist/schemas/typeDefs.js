@@ -25,6 +25,7 @@ const typeDefs = `
   }
 
   type SSGroup {
+    _id: ID
     name: String
     members: [String]
     matches: [Match]
@@ -51,7 +52,7 @@ const typeDefs = `
   type Mutation {
     addUser(input: UserInput): Auth
     login(email: String, password: String): Auth
-    createSSGroup(input: SSGroupInput): User
+    createSSGroup(input: SSGroupInput): SSGroup
     addMemberToGroup(groupId: ID, member: String): SSGroup
     removeMemberFromGroup(groupId: ID, member: String): SSGroup
     removeSSGroup(groupId: ID): Boolean

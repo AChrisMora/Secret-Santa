@@ -15,10 +15,18 @@ const RandomSelection: React.FC = () => {
   const assignments: Assignment[] = location.state?.assignments || [];
 
   useEffect(() => {
+
+    console.log('Location State:', location.state);
+
     // Assuming groupId comes from the state or API
     const retrievedGroupId = location.state?.groupId || 'DEFAULT_GROUP_ID'; // Fetch the actual group ID
+
+    console.log('Retrieved Group ID:', retrievedGroupId);
+    
     setGroupId(retrievedGroupId); // Update groupId state
   }, [location.state]);
+
+  console.log('Assignments:', assignments);
 
   // Send assignments to the server
   const sendAssignmentsToServer = async () => {
