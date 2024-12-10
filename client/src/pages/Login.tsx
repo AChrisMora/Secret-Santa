@@ -20,11 +20,13 @@ const Login: React.FC = () => {
   const handleLogin = async () => {
     try {
       // Perform the login mutation
+      console.log('Login Input:', user.username, user.password); 
       const { data } = await loginUser({
         variables: { email: user.username, password: user.password }, // Send email and password
       });
 
       // Save the token in local storage and redirect to '/create-group'
+      console.log('Login Response:', data);
       Auth.login(data.login.token);
       setIsLoggedIn(true); // Update the login status locally (if using state for local UI)
 
