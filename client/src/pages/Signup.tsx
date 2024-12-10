@@ -38,11 +38,8 @@ const Signup = () => {
   };
 
   return (
-    <main className="flex-row justify-center mb-4">
-      <div className="col-12 col-lg-10">
-        <div className="card">
-          <h4 className="card-header bg-dark text-light p-2">Sign Up</h4>
-          <div className="card-body">
+    <main className="signup-container">
+           <h1>Sign Up</h1>
             {data ? (
               <p>
                 Success! You may now head{' '}
@@ -79,19 +76,16 @@ const Signup = () => {
                   style={{ cursor: 'pointer' }}
                   type="submit"
                 >
-                  Submit
+                  Sign Up
                 </button>
               </form>
             )}
 
             {error && (
-              <div className="my-3 p-3 bg-danger text-white">
+              <div className="bg-danger">
                 {error.message}
               </div>
             )}
-          </div>
-        </div>
-      </div>
     </main>
   );
 };
