@@ -39,14 +39,30 @@ const resolvers = {
             // Return the token and the user
             return { token, user };
         },
+        // createSSGroup: async (_parent: any, { input }: CreateSSGroupArgs, context: any) => {
+        //   if (!context.user) {
+        //     throw new AuthenticationError('Not authenticated.');
+        //   }
+        //   const ssGroup = await Group.create({ name: input.name, members: input.members, matches: input.matches, userId: context.user._id });
+        //   const updatedUser = await User.findOneAndUpdate(
+        //     { _id: context.user._id },
+        //     { $addToSet: { ssGroups: { ...ssGroup } } },
+        //     { new: true }
+        //   ).populate("ssGroups");
+        //   return updatedUser;
+        // },
         createSSGroup: async (_parent, { input }, context) => {
             if (!context.user) {
                 throw new AuthenticationError('Not authenticated.');
             }
-            const ssGroup = await Group.create({ name: input.name, members: input.members, matches: input.matches, userId: context.user._id });
-            const updatedUser = await User.findOneAndUpdate({ _id: context.user._id }, { $addToSet: { ssGroups: { ...ssGroup } } }, { new: true }).populate("ssGroups");
-            console.log(updatedUser);
-            return updatedUser;
+            const ssGroup = await Group.create({
+                name: input.name,
+                members: input.members,
+                matches: input.matches,
+                userId: context.user._id,
+            });
+            await User.findOneAndUpdate({ _id: context.user._id }, { $addToSet: { ssGroups: ssGroup } }, { new: true });
+            return ssGroup;
         },
         addMemberToGroup: async (_parent, { groupId, member, }, context) => {
             if (!context.user) {

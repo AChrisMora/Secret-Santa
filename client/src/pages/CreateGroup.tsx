@@ -30,11 +30,16 @@ const CreateGroup: React.FC = () => {
         receiver: shuffled[(index + 1) % shuffled.length],
       }));
 
+      console.log('Participants:', participants);
+      console.log('Assignments:', assignments);
+
       // Create the group and send assignments
       try {
-        await createSSGroup({
+        const { data } = await createSSGroup({
           variables: { input: { name: 'Secret Santa Group', members: participants, matches: assignments } },
         });
+        
+        console.log('Group created successfully:', data);
 
         // Navigate to the assignments page
         navigate('/random-selection', { state: { assignments } });
