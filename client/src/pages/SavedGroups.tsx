@@ -14,6 +14,8 @@ const SavedGroups: React.FC = () => {
 
   useEffect(() => {
     if (data) {
+      console.log('Fetched data:', data);
+      console.log('Updating savedGroups state:', data.myGroups);
       setSavedGroups(data.myGroups);
     }
   }, [data]);

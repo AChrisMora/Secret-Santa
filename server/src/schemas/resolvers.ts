@@ -53,12 +53,17 @@ const resolvers = {
       if (!context.user) {
         throw new AuthenticationError('Not authenticated.');
       }
-    
-      // Fetch all groups associated with the authenticated user
-      return Group.find({ userId: context.user._id });
-    },
+      
+      const user = await User.findOne({ _id: context.user._id }).populate('ssGroups');
+      console.log(user);
+      if (!user) {
+        throw new AuthenticationError('User not found.');
+      }
+      return user.ssGroups;
+    }
     
   },
+
   Mutation: {
     addUser: async (_parent: any, { input }: AddUserArgs) => {
       // Create a new user with the provided username, email, and password
@@ -128,8 +133,8 @@ const resolvers = {
         { new: true }
       );
       
-      console.log(ssGroup);
-      
+      // console.log("LOOK HERE", updatedUser);
+
       return ssGroup;
     },
     
