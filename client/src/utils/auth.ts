@@ -41,7 +41,7 @@ class AuthService {
   // Login the user by saving the token in localStorage and redirecting to the home page
   login(idToken: string) {
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/'); // You can change this to navigate programmatically using your router
+    // window.location.assign('/');
   }
 
   // Logout the user by removing the token from localStorage and redirecting to the home page
