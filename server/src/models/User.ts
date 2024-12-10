@@ -40,6 +40,7 @@ const userSchema = new Schema<IUser>(
     ssGroups: [
       {
         type: Schema.Types.Mixed,
+        ref: 'Group'
       }
     ]
   },

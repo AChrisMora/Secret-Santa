@@ -15,11 +15,16 @@ interface LoginUserArgs {
   password: string;
 }
 
+interface Match {
+  giver: string;
+  receiver: string;
+}
+
 interface CreateSSGroupArgs {
   input:{
   name: string;
   members: string[];
-  matches: any;
+  matches: Match[];
   }
 }
 
@@ -99,21 +104,20 @@ const resolvers = {
       if (!context.user) {
         throw new AuthenticationError('Not authenticated.');
       }
-    
-      const ssGroup = await Group.create({
-        name: input.name,
-        members: input.members,
-        matches: input.matches,
-        userId: context.user._id,
+      const ssGroup = await Group.create({ 
+        name: input.name, 
+        members: input.members, 
+        matches: input.matches, 
+        userId: context.user._id 
       });
-    
-      await User.findOneAndUpdate(
+
+      const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
-        { $addToSet: { ssGroups: ssGroup } },
+        { $addToSet: { ssGroups: ssGroup._id } },
         { new: true }
       );
     
-      return ssGroup;
+      return updatedUser;
     },
 
     addMemberToGroup: async (_parent: any, { groupId, member, }: AdjustMemberArgs, context: any) => {
