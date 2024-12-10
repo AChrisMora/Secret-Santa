@@ -23,9 +23,12 @@ const RandomSelection: React.FC = () => {
       ) : (
         <p className="no-assignments">No assignments found. Please go back and try again.</p>
       )}
-      {/* Removed Save Assignments button */}
+      {/* Buttons */}
       <button className="buttons" onClick={() => navigate('/create-group')}>
         Create a New Group
+      </button>
+      <button className="buttons" onClick={() => navigate('/saved-groups')}>
+        View Saved Groups
       </button>
     </div>
   );
