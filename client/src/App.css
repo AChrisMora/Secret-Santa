@@ -167,12 +167,16 @@ li {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    padding-top: 90px;
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
   }
  
   .random-selection-title {
     font-size: 36px;
     margin-bottom: 20px;
     text-align: center;
+    margin-top: 20px;
   }
   
   .assignment-list {

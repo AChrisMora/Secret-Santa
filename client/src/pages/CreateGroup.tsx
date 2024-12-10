@@ -65,6 +65,12 @@ const CreateGroup: React.FC = () => {
         <button className="add-participant-button" onClick={addParticipant}>
           Add Participant
         </button>
+        {/* View Saved Groups Button */}
+        <button 
+          className="add-participant-button" 
+          onClick={() => navigate('/saved-groups')}>
+          View Saved Groups
+        </button>
         <ul>
           {participants.map((participant, index) => (
             <li key={index}>{participant}</li>
