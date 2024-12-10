@@ -1,59 +1,29 @@
 import { gql } from '@apollo/client';
 
-export const QUERY_USER = gql`
-  query user($username: String!) {
-    user(username: $username) {
+// Query to fetch all participants in a group
+export const QUERY_GROUP = gql`
+  query ssGroup($groupId: ID!) {
+    ssGroup(groupId: $groupId) {
       _id
-      username
-      email
-      thoughts {
-        _id
-        thoughtText
-        createdAt
+      name
+      members
+      matches {
+        giver
+        receiver
       }
     }
   }
 `;
 
-export const QUERY_THOUGHTS = gql`
-  query getThoughts {
-    thoughts {
+// Query to fetch group assignments (matches)
+export const QUERY_ASSIGNMENTS = gql`
+  query ssGroup($groupId: ID!) {
+    ssGroup(groupId: $groupId) {
       _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-    }
-  }
-`;
-
-export const QUERY_SINGLE_THOUGHT = gql`
-  query getSingleThought($thoughtId: ID!) {
-    thought(thoughtId: $thoughtId) {
-      _id
-      thoughtText
-      thoughtAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        commentAuthor
-        createdAt
-      }
-    }
-  }
-`;
-
-export const QUERY_ME = gql`
-  query me {
-    me {
-      _id
-      username
-      email
-      thoughts {
-        _id
-        thoughtText
-        thoughtAuthor
-        createdAt
+      name
+      matches {
+        giver
+        receiver
       }
     }
   }

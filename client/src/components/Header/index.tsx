@@ -9,11 +9,14 @@ const Header: React.FC = () => {
         <Link to="/" className="header-title">
           Secret Santa
         </Link>
-
+        <img src="/hat.png" alt="Hat" className="header-img" />
         {/* Login Button */}
-        <nav>
+        <nav className="header-nav">
           <Link to="/login" className="header-login-btn">
             Login
+          </Link>
+          <Link to="/signup" className="header-login-btn">
+            Sign Up
           </Link>
         </nav>
       </div>

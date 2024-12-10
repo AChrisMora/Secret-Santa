@@ -1,39 +1,41 @@
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Login from './pages/Login';
-import CreateGroup from './pages/CreateGroup';
-import RandomSelection from './pages/RandomSelection';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
+import { ApolloProvider, InMemoryCache, ApolloClient, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
-// Custom 404 Error Page
-const NotFound: React.FC = () => (
-  <div>
-    <h1>404 - Page Not Found</h1>
-    <p>The page you are looking for does not exist.</p>
-    <a href="/">Go back to Home</a>
-  </div>
-);
+// const client = new ApolloClient({
+//   uri: 'http://localhost:3000/graphql',
+//   cache: new InMemoryCache(),
+// });
 
-const router = createBrowserRouter([
-  {
-    path: '/', // Default page is Login
-    element: <Login />,
-    errorElement: <NotFound />, // Custom error page
-  },
-  {
-    path: '/login', // Explicit login route
-    element: <Login />,
-  },
-  {
-    path: '/create-group',
-    element: <CreateGroup />,
-  },
-  {
-    path: '/random-selection',
-    element: <RandomSelection />,
-  },
-]);
+const httpLink = createHttpLink({
+  uri: 'http://localhost:3000/graphql', // Adjust to your GraphQL server URL
+});
+
+const authLink = setContext((_, { headers }) => {
+  // Get the token from localStorage
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
+
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
+  ReactDOM.createRoot(rootElement).render(
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ApolloProvider>
+  );
 }
