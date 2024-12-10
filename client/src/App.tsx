@@ -5,6 +5,7 @@ import Login from './pages/Login';
 import CreateGroup from './pages/CreateGroup';
 import Signup from './pages/Signup';
 import RandomSelection from './pages/RandomSelection'; // Import RandomSelection page
+import SavedGroups from './pages/SavedGroups';
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
           <Route path="/create-group" element={<CreateGroup />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/random-selection" element={<RandomSelection />} /> {/* Add RandomSelection route */}
+          <Route path="/saved-groups" element={<SavedGroups/>} />
           {/* Add other routes */}
         </Routes>
       </main>
