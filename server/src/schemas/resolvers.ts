@@ -54,7 +54,7 @@ const resolvers = {
         throw new AuthenticationError('Not authenticated.');
       }
       
-      const user = await User.findOne({ _id: context.user._id }).populate('ssGroups');
+      const user = await User.findOne({ _id: context.user._id }).select('-password');
       console.log(user);
       if (!user) {
         throw new AuthenticationError('User not found.');
@@ -116,6 +116,7 @@ const resolvers = {
     // },
 
     createSSGroup: async (_parent: any, { input }: any, context: any) => {
+      console.log("This is running")
       if (!context.user) {
         throw new AuthenticationError('Not authenticated.');
       }
@@ -126,14 +127,15 @@ const resolvers = {
         matches: input.matches,
         userId: context.user._id,
       });
+      console.log(ssGroup);
     
-      await User.findOneAndUpdate(
+      const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
         { $addToSet: { ssGroups: ssGroup } },
         { new: true }
       );
-      
-      // console.log("LOOK HERE", updatedUser);
+      console.log("===============================")
+      console.log(updatedUser);
 
       return ssGroup;
     },

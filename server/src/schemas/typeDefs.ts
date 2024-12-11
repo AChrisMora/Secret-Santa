@@ -42,16 +42,10 @@ const typeDefs = `
   }
 
   type Query {
-    users: [User]
-    user(username: String): User
     me: User
-    ssGroups: [SSGroup]  
-    ssGroup(groupId: ID): SSGroup
+    myGroups: [SSGroup]
   }
 
-  type Query {
-  myGroups: [SSGroup]
-  }
 
   type Mutation {
     addUser(input: UserInput): Auth
