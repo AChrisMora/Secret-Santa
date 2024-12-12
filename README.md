@@ -84,10 +84,7 @@ Secret-Santa is a modern, interactive web application designed to simplify the S
 - **Theme Customization:** Add support for custom holiday themes.
 
 ## Deployment
-The application is deployed on Render and can be accessed via this [link](https://your-app-url.render.com).
-
-## Screenshot
-![Secret Santa Screenshot](./screenshot.png)
+The application is deployed on Render and can be accessed via this [link](https://secret-santa-5649.onrender.com).
 
 ## Contribution Guidelines
 We welcome contributions! To contribute:
